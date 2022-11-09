@@ -1,3 +1,5 @@
+// Main
+
 let curso = parseInt(
    prompt("Escoge el curso que deseas comprar: 1.nutricion - 2.entrenador - 3.dance - 4.futbol")
 );
@@ -5,7 +7,13 @@ let seguirComprando = true;
 let totalCompra = 0;
 let decision;
 
-// class curso
+// Arrays
+
+const products = [];
+const cart = [];
+
+// Classes
+
 class NewCurso {
    constructor(id, name, price, stock) {
       this.id = id;
@@ -14,24 +22,22 @@ class NewCurso {
       this.stock = stock;
    }
 }
+
+// Hero
+
 const nutricion = new NewCurso(1, "nutricion", 5000, 100);
+products.push(nutricion);
 const entrenador = new NewCurso(2, "entrenador", 11000, 100);
+products.push(entrenador);
 const dance = new NewCurso(3, "dance", 8000, 100);
+products.push(dance);
 const futbol = new NewCurso(4, "futbol", 1000, 100);
+products.push(futbol);
 
 while (seguirComprando === true) {
-   if (curso === nutricion.id) {
-      totalCompra = totalCompra + nutricion.price;
-      nutricion.stock = nutricion.stock - 1;
-   } else if (curso === entrenador.id) {
-      totalCompra = totalCompra + entrenador.price;
-      entrenador.stock = entrenador.stock - 1;
-   } else if (curso === dance.id) {
-      totalCompra = totalCompra + dance.price;
-      dance.stock = dance.stock - 1;
-   } else if (curso === futbol.id) {
-      totalCompra = totalCompra + futbol.price;
-      futbol.stock = futbol.stock - 1;
+   const product = products.find((prod) => prod.id === curso);
+   if (product) {
+      cart.push(product);
    }
 
    decision = parseInt(prompt("Quieres seguir comprando algun otro curso? 1.Si - 2.No"));
@@ -46,6 +52,12 @@ while (seguirComprando === true) {
    }
 }
 
+cart.forEach((product) => {
+   totalCompra = totalCompra + product.price;
+});
+
+console.log(cart);
+console.log(totalCompra);
 const totalCompraConDescuento = descuento(totalCompra);
 alert(`El total de tu compra con descuento aplicado es ${totalCompraConDescuento}`);
 
